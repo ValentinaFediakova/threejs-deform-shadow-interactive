@@ -8,8 +8,12 @@ export default {
     path: path.resolve(process.cwd(), "public"),
     publicPath: "/",
   },
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
   module: {
     rules: [
+      { test: /\.ts$/i, use: "ts-loader", exclude: "/node_modules/" },
       { test: /\.css$/i, use: ["style-loader", "css-loader"] },
       {
         test: /\.(png|jpe?g|gif)$/i,
