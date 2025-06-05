@@ -34,25 +34,46 @@ async function loadTextures(): Promise<{
 
 const initApp = async () => {
   const { texture, shadowTexture } = await loadTextures();
+  const params: Params = {
+    planeWidth: 15,
+    planeHeight: 15,
+    segments: 50,
+    minDistance: 3.0,
+    displacementScale: 1.0,
+  };
 
-  const imagesContainer = document.createElement("div");
-  imagesContainer.style.display = "flex";
-  imagesContainer.style.gap = "16px";
-  imagesContainer.style.padding = "16px";
+  const scene = new THREE.Scene();
+  const aspect = window.innerWidth / window.innerHeight;
+  const size = 10;
+  const camera = new THREE.OrthographicCamera(
+    -size * aspect,
+    size * aspect,
+    size,
+    -size,
+    0.1,
+    100
+  );
+  camera.position.set(0, -10, 5);
+  camera.lookAt(0, 0, 0);
 
-  const imgTexture = document.createElement("img");
-  imgTexture.src = (texture.image as HTMLImageElement).src;
-  imgTexture.alt = "Texture";
-  imgTexture.style.maxWidth = "200px";
-  imagesContainer.appendChild(imgTexture);
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.getElementById("container")!.appendChild(renderer.domElement);
 
-  const imgShadow = document.createElement("img");
-  imgShadow.src = (shadowTexture.image as HTMLImageElement).src;
-  imgShadow.alt = "Shadow Texture";
-  imgShadow.style.maxWidth = "200px";
-  imagesContainer.appendChild(imgShadow);
+  const uniforms = {
+    uTexture: { value: texture },
+    uDisplacement: { value: new THREE.Vector3(0, 0, 0) }, //sours of deformation
+    uMinDistance: { value: params.minDistance },
+    uScale: { value: params.displacementScale },
+  };
 
-  document.body.appendChild(imagesContainer);
+  const shadowUniforms = {
+    uTexture: { value: shadowTexture },
+    uDisplacement: { value: new THREE.Vector3(0, 0, 0) },
+    uMinDistance: { value: params.minDistance },
+    uScale: { value: 0 },
+  };
 };
 
 initApp();
