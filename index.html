@@ -9,6 +9,26 @@
     <title>Shadow Shader Demo</title>
   </head>
   <body>
+    <div
+      id="controls"
+      style="
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 10;
+        background: #fff;
+        padding: 10px;
+        border-radius: 4px;
+      "
+    >
+      <button id="sphere-plus">Увеличить сферу</button>
+      <button id="sphere-minus">Уменьшить сферу</button>
+      <br /><br />
+      <label>
+        Цвет текста:
+        <input type="color" id="text-color" value="#000000" />
+      </label>
+    </div>
     <script src="/bundle.js"></script>
   </body>
 </html>
