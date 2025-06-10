@@ -5,7 +5,5 @@ body {
   padding: 0;
   overflow: hidden;
   touch-action: none;
-  background-color: #111;
   color: #fff;
-  font-family: Arial, sans-serif;
 }
