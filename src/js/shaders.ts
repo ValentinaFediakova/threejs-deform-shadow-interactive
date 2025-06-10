@@ -27,12 +27,18 @@ export const vertexShaderPlane = `
 `;
 
 export const fragmentShaderPlane = `
-  varying vec2 vUv;
-  uniform sampler2D uTexture;
-  void main() {
-    vec4 color = texture2D(uTexture, vUv);
-    gl_FragColor = vec4(color);
+varying vec2 vUv;
+uniform sampler2D uTexture;
+
+void main() {
+  float a = texture2D(uTexture, vUv).a;
+
+  if (a < 0.1) {
+    discard;
   }
+
+  gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+}
 `;
 
 export const vertexShaderShadow = `
@@ -52,18 +58,20 @@ export const fragmentShaderShadow = `
   varying vec2 vUv;
   varying float dist;
   uniform sampler2D uTexture;
+  uniform vec3     uShadowColor;
 
-  float map(float value, float min1, float max1, float min2, float max2) {
-    return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
+  float map(float v, float a1, float a2, float b1, float b2) {
+    return b1 + (v - a1) * (b2 - b1) / (a2 - a1);
   }
 
   void main() {
-    vec4 color = texture2D(uTexture, vUv);
-    float min_distance = 3.;
-    if (dist < min_distance) {
-      float alpha = map(dist, min_distance, 0., color.a, 0.);
-      color.a = alpha;
+    float a = texture2D(uTexture, vUv).a;
+    float minDist = 3.0;
+
+    if (dist < minDist) {
+      a = map(dist, minDist, 0.0, a, 0.0);
     }
-    gl_FragColor = vec4(color);
+
+    gl_FragColor = vec4(uShadowColor, a);
   }
 `;
