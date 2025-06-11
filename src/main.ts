@@ -4,6 +4,13 @@ import { setupEventListeners } from "./js/events";
 import { animate } from "./js/animate";
 import * as THREE from "three";
 
+const canvas = renderer.domElement;
+canvas.id = "threejs-canvas";
+
+if (!document.getElementById(canvas.id)) {
+  document.body.appendChild(canvas);
+}
+
 scene.add(sphere);
 scene.add(hitPlane);
 scene.add(planeShadow);
