@@ -20,24 +20,20 @@ setupEventListeners();
 
 animate();
 
-const spherePlusButton = document.getElementById("sphere-plus");
-if (spherePlusButton) {
-  spherePlusButton.addEventListener("click", () => {
-    sphere.scale.multiplyScalar(1.2);
-  });
-}
-const sphereMinusButton = document.getElementById("sphere-minus");
-if (sphereMinusButton) {
-  sphereMinusButton.addEventListener("click", () => {
-    sphere.scale.multiplyScalar(0.8);
-  });
-}
+const btnPlus = document.getElementById("sphere-plus") as HTMLButtonElement;
+const btnMinus = document.getElementById("sphere-minus") as HTMLButtonElement;
 
-const textColorInput = document.getElementById("text-color");
-if (textColorInput) {
-  textColorInput.addEventListener("input", (e) => {
-    const hex = (e.target as HTMLInputElement).value;
-    const color = new THREE.Color(hex);
-    plane.material.uniforms.uTextColor.value.copy(color);
-  });
-}
+btnPlus.addEventListener("click", () => {
+  sphere.scale.multiplyScalar(1.2);
+});
+
+btnMinus.addEventListener("click", () => {
+  sphere.scale.multiplyScalar(0.8);
+});
+
+const colorInput = document.getElementById("text-color") as HTMLInputElement;
+
+colorInput.addEventListener("input", () => {
+  const col = new THREE.Color(colorInput.value);
+  (plane.material as THREE.ShaderMaterial).uniforms.uTextColor.value.copy(col);
+});

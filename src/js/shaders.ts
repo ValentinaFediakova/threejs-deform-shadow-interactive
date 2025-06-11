@@ -27,18 +27,15 @@ export const vertexShaderPlane = `
 `;
 
 export const fragmentShaderPlane = `
-varying vec2 vUv;
-uniform sampler2D uTexture;
+  varying vec2 vUv;
+  uniform sampler2D uTexture;
+  uniform vec3       uTextColor;
 
-void main() {
-  float a = texture2D(uTexture, vUv).a;
-
-  if (a < 0.1) {
-    discard;
+  void main() {
+    float a = texture2D(uTexture, vUv).a;
+    if (a < 0.1) discard;
+    gl_FragColor = vec4(uTextColor, 1.0);
   }
-
-  gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-}
 `;
 
 export const vertexShaderShadow = `

@@ -63,7 +63,8 @@ export const plane = (() => {
   const mat = new THREE.ShaderMaterial({
     uniforms: {
       uTexture: { value: tex },
-      uDisplacement: { value: new THREE.Vector3(0, 0, 0) },
+      uDisplacement: { value: new THREE.Vector3(1000, 1000, 1000) },
+      uTextColor: { value: new THREE.Color(0x000000) },
     },
     vertexShader: vertexShaderPlane,
     fragmentShader: fragmentShaderPlane,
