@@ -13,8 +13,15 @@ export default {
   },
   module: {
     rules: [
-      { test: /\.ts$/i, use: "ts-loader", exclude: "/node_modules/" },
-      { test: /\.css$/i, use: ["style-loader", "css-loader"] },
+      {
+        test: /\.ts$/i,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(scss|css)$/i,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
       {
         test: /\.(png|jpe?g|gif)$/i,
         type: "asset/resource",

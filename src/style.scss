@@ -1,0 +1,42 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  touch-action: none;
+  color: #fff;
+}
+
+.controls {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  background: #fff;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.btn {
+  border: none;
+  background-color: cadetblue;
+  padding: 15px;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 14px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.color-wrap {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.color-title {
+  color: black;
+  font-family: monospace;
+  font-size: 14px;
+  margin-right: 10px;
+}

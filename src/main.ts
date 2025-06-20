@@ -4,6 +4,8 @@ import { setupEventListeners } from "./js/events";
 import { animate } from "./js/animate";
 import * as THREE from "three";
 
+import "./style.scss";
+
 const canvas = renderer.domElement;
 canvas.id = "threejs-canvas";
 
