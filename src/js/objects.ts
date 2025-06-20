@@ -12,11 +12,15 @@ export const sphere = (() => {
   const geometry = new THREE.SphereGeometry(0.25, 32, 16);
   const material = new THREE.MeshBasicMaterial({
     color: 0xff0000,
+    wireframe: true,
     transparent: true,
     opacity: 0,
     depthWrite: false,
+    depthTest: false,
   });
-  return new THREE.Mesh(geometry, material);
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.renderOrder = 2;
+  return mesh;
 })();
 
 export const hitPlane = (() => {
@@ -40,6 +44,7 @@ export const planeShadow = (() => {
       uTexture: { value: tex },
       uDisplacement: { value: new THREE.Vector3(0, 0, 0) },
       uShadowColor: { value: new THREE.Color(0.5, 0.5, 0.5) },
+      uMinDistance: { value: 3.0 },
     },
     vertexShader: vertexShaderShadow,
     fragmentShader: fragmentShaderShadow,
@@ -65,6 +70,8 @@ export const plane = (() => {
       uTexture: { value: tex },
       uDisplacement: { value: new THREE.Vector3(1000, 1000, 1000) },
       uTextColor: { value: new THREE.Color(0x000000) },
+      uMinDistance: { value: 3.0 },
+      uScale: { value: 1.0 },
     },
     vertexShader: vertexShaderPlane,
     fragmentShader: fragmentShaderPlane,

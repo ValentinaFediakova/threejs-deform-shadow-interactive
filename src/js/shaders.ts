@@ -1,28 +1,32 @@
 export const vertexShaderPlane = `
   varying vec2 vUv;
-  uniform vec3 uDisplacement;
-  
+  uniform vec3  uDisplacement;
+  uniform float uMinDistance;
+  uniform float uScale;
+
   float easeInOutCubic(float x) {
     return x < 0.5
-      ? 4. * x * x * x
-      : 1. - pow(-2. * x + 2., 3.) / 2.;
+      ? 4.0 * x * x * x
+      : 1.0 - pow(-2.0 * x + 2.0, 3.0) / 2.0;
   }
 
-  float map(float value, float min1, float max1, float min2, float max2) {
-    return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
-  }  
+  float map(float v, float a1, float a2, float b1, float b2) {
+    return b1 + (v - a1) * (b2 - b1) / (a2 - a1);
+  }
 
   void main() {
     vUv = uv;
-    vec3 new_position = position;
-    vec4 worldPosition = modelMatrix * vec4(position, 1.);
-    float dist = length(uDisplacement - worldPosition.rgb);
-    float min_distance = 3.;
-    if (dist < min_distance) {
-      float t = map(dist, 0., min_distance, 1., 0.);
-      new_position.z += easeInOutCubic(t) * 1.;
+    vec3 pos = position;
+    vec4 worldPos = modelMatrix * vec4(position, 1.0);
+    float dist = length(uDisplacement - worldPos.xyz);
+    float minDist = uMinDistance;
+
+    if (dist < minDist) {
+      float t = map(dist, 0.0, minDist, 1.0, 0.0);
+      pos.z += easeInOutCubic(t) * uScale;
     }
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(new_position, 1.0);
+
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
   }
 `;
 
