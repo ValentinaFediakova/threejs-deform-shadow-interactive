@@ -66,16 +66,3 @@ npm run build
 ```
 
 Bundles optimized assets to `/public` for deployment.
-
-## 🎛 Configuration & Customization
-
-- **Textures**: swap `public/textures/texture-white.png` with your own alpha-mask PNG.
-- **Shaders**: tweak `uniform` defaults in `objects.ts` or modify GLSL in `src/js/shaders.ts`.
-- **UI Styles**: edit SCSS in `src/style.scss` to restyle control panel or canvas layout.
-- **Build Settings**: adjust `webpack.config.js` for different loaders or output paths.
-
-## 📝 Usage
-
-1. Hover over the text to see the deformation effect.
-2. Use **Increase / Decrease** buttons to change the deformation radius.
-3. Pick a color with the **Color** input to recolor the text.
