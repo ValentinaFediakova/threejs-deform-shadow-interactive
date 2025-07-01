@@ -37,7 +37,7 @@ index.html                 # HTML template (WebpackPlugin)
 
 ## 🛠 Prerequisites
 
-- Node.js v14+ / npm (or Yarn)
+- Node.js v14+ / npm
 
 ## 🔧 Installation
 
